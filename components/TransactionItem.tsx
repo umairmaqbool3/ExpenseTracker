@@ -2,7 +2,7 @@ import { ArrowDownLeft, ArrowUpRight, CreditCard, DollarSign } from 'lucide-reac
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import colors from '@/constants/colors';
+import { useTheme } from '@/hooks/useTheme';
 import { Category, Transaction } from '@/types/finance';
 import { formatDate } from '@/utils/dateUtils';
 import { formatCurrency } from '@/utils/financeUtils';
@@ -18,6 +18,8 @@ export default function TransactionItem({
   category, 
   onPress 
 }: TransactionItemProps) {
+  const { colors } = useTheme();
+  
   const getIcon = () => {
     switch (transaction.type) {
       case 'income':
@@ -63,6 +65,59 @@ export default function TransactionItem({
     }
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      backgroundColor: colors.card,
+      borderRadius: 12,
+      marginBottom: 8,
+      shadowColor: colors.shadow,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 2,
+    },
+    iconContainer: {
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 12,
+    },
+    detailsContainer: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    description: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: colors.text,
+      marginBottom: 4,
+    },
+    subDetails: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    category: {
+      fontSize: 14,
+      color: colors.textSecondary,
+      marginRight: 8,
+    },
+    date: {
+      fontSize: 12,
+      color: colors.textSecondary,
+    },
+    amount: {
+      fontSize: 16,
+      fontWeight: '600',
+      marginLeft: 8,
+    },
+  });
+
   return (
     <TouchableOpacity 
       style={styles.container} 
@@ -90,55 +145,3 @@ export default function TransactionItem({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    backgroundColor: colors.card,
-    borderRadius: 12,
-    marginBottom: 8,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  detailsContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  description: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.text,
-    marginBottom: 4,
-  },
-  subDetails: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  category: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    marginRight: 8,
-  },
-  date: {
-    fontSize: 12,
-    color: colors.textSecondary,
-  },
-  amount: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-});

@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-
-import colors from '@/constants/colors';
+import { useTheme } from '@/hooks/useTheme';
 import { formatCurrency } from '@/utils/financeUtils';
 
 interface SummaryCardProps {
@@ -20,6 +19,39 @@ export default function SummaryCard({
   color, 
   lightColor 
 }: SummaryCardProps) {
+  const { colors } = useTheme();
+  
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 16,
+      borderRadius: 16,
+      marginBottom: 12,
+      minHeight: 90,
+    },
+    content: {
+      flex: 1,
+    },
+    title: {
+      fontSize: 14,
+      color: colors.textSecondary,
+      marginBottom: 8,
+    },
+    amount: {
+      fontSize: 20,
+      fontWeight: '700',
+    },
+    iconContainer: {
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
+  
   return (
     <View style={[styles.container, { backgroundColor: lightColor }]}>
       <View style={styles.content}>
@@ -33,33 +65,3 @@ export default function SummaryCard({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderRadius: 16,
-    marginBottom: 12,
-    minHeight: 90,
-  },
-  content: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    marginBottom: 8,
-  },
-  amount: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

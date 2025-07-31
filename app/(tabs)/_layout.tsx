@@ -2,13 +2,16 @@ import { Tabs } from "expo-router";
 import { BarChart3, DollarSign, Home, Settings } from "lucide-react-native";
 import React from "react";
 
-import colors from "@/constants/colors";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function TabLayout() {
+  const { colors } = useTheme();
+  
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textSecondary,
         headerShown: true,
         tabBarStyle: {
           backgroundColor: colors.background,
@@ -23,6 +26,7 @@ export default function TabLayout() {
         },
         headerTitleStyle: {
           fontWeight: '600',
+          color: colors.text,
         },
       }}
     >

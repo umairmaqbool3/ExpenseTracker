@@ -6,8 +6,8 @@ import { RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } 
 import EmptyState from '@/components/EmptyState';
 import SummaryCard from '@/components/SummaryCard';
 import TransactionItem from '@/components/TransactionItem';
-import colors from '@/constants/colors';
 import { useFinanceStore } from '@/hooks/useFinanceStore';
+import { useTheme } from '@/hooks/useTheme';
 import {
   calculateBalance,
   calculateExpenses,
@@ -20,6 +20,7 @@ import {
 
 export default function DashboardScreen() {
   const router = useRouter();
+  const { colors } = useTheme();
   const { 
     transactions, 
     categories, 
@@ -57,6 +58,78 @@ export default function DashboardScreen() {
       params: { id: transactionId }
     });
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background
+    },
+    balanceContainer: {
+      backgroundColor: colors.primary,
+      padding: 24,
+      alignItems: 'center',
+      borderBottomLeftRadius: 24,
+      borderBottomRightRadius: 24,
+    },
+    balanceLabel: {
+      color: 'rgba(255, 255, 255, 0.8)',
+      fontSize: 16,
+      marginBottom: 8,
+    },
+    balanceAmount: {
+      color: 'white',
+      fontSize: 32,
+      fontWeight: '700',
+    },
+    summaryContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingHorizontal: 16,
+      paddingTop: 16,
+    },
+    sectionHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      marginTop: 24,
+      marginBottom: 8,
+    },
+    sectionTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: colors.text,
+    },
+    seeAllText: {
+      color: colors.primary,
+      fontWeight: '500',
+    },
+    transactionsContainer: {
+      paddingHorizontal: 16,
+      paddingBottom: 80,
+    },
+    emptyText: {
+      textAlign: 'center',
+      color: colors.textSecondary,
+      padding: 24,
+    },
+    addButton: {
+      position: 'absolute',
+      bottom: 24,
+      right: 24,
+      width: 56,
+      height: 56,
+      borderRadius: 28,
+      backgroundColor: colors.primary,
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: colors.primary,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.3,
+      shadowRadius: 8,
+      elevation: 5,
+    },
+  });
 
   if (transactions.length === 0 && !isLoading) {
     return (
@@ -152,74 +225,3 @@ export default function DashboardScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundSecondary,
-  },
-  balanceContainer: {
-    backgroundColor: colors.primary,
-    padding: 24,
-    alignItems: 'center',
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-  },
-  balanceLabel: {
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontSize: 16,
-    marginBottom: 8,
-  },
-  balanceAmount: {
-    color: 'white',
-    fontSize: 32,
-    fontWeight: '700',
-  },
-  summaryContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    marginTop: 24,
-    marginBottom: 8,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.text,
-  },
-  seeAllText: {
-    color: colors.primary,
-    fontWeight: '500',
-  },
-  transactionsContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 80,
-  },
-  emptyText: {
-    textAlign: 'center',
-    color: colors.textSecondary,
-    padding: 24,
-  },
-  addButton: {
-    position: 'absolute',
-    bottom: 24,
-    right: 24,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-});

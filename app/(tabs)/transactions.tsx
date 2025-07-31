@@ -2,13 +2,13 @@ import { useRouter } from 'expo-router';
 import { DollarSign, Plus, Search } from 'lucide-react-native';
 import React, { useCallback, useState } from 'react';
 import {
-    FlatList,
-    RefreshControl,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 
 import EmptyState from '@/components/EmptyState';

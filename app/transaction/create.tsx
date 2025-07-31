@@ -2,15 +2,15 @@ import { useRouter } from 'expo-router';
 import { ArrowDownLeft, ArrowUpRight, CreditCard, DollarSign } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 
 import CategoryPicker from '@/components/CategoryPicker';

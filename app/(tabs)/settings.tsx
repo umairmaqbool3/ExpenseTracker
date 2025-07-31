@@ -1,30 +1,33 @@
+import { useFinanceStore } from '@/hooks/useFinanceStore';
+import { useTheme } from '@/hooks/useTheme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import {
-    ChevronRight,
-    HelpCircle,
-    Info,
-    Shield,
-    Tag,
-    Trash2,
-    User
+  ChevronRight,
+  HelpCircle,
+  Info,
+  Moon,
+  Shield,
+  Smartphone,
+  Sun,
+  Tag,
+  Trash2,
+  User
 } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
-    Alert,
-    ScrollView,
-    StyleSheet,
-    Switch,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
-
-import colors from '@/constants/colors';
-import { useFinanceStore } from '@/hooks/useFinanceStore';
 
 export default function SettingsScreen() {
   const router = useRouter();
+  const { colors, themeMode, setThemeMode } = useTheme();
   const { categories, people, refreshData } = useFinanceStore();
   const [useBiometrics, setUseBiometrics] = useState(false);
 
@@ -52,6 +55,57 @@ export default function SettingsScreen() {
         { text: 'OK' }
       ]
     );
+  };
+
+  const handleThemeSelection = () => {
+    Alert.alert(
+      'Select Theme',
+      'Choose your preferred theme mode',
+      [
+        {
+          text: 'Light',
+          onPress: () => setThemeMode('light'),
+          style: themeMode === 'light' ? 'default' : 'cancel'
+        },
+        {
+          text: 'Dark',
+          onPress: () => setThemeMode('dark'),
+          style: themeMode === 'dark' ? 'default' : 'cancel'
+        },
+        {
+          text: 'System',
+          onPress: () => setThemeMode('system'),
+          style: themeMode === 'system' ? 'default' : 'cancel'
+        },
+        { text: 'Cancel', style: 'cancel' }
+      ]
+    );
+  };
+
+  const getThemeIcon = () => {
+    switch (themeMode) {
+      case 'light':
+        return <Sun size={20} color={colors.primary} />;
+      case 'dark':
+        return <Moon size={20} color={colors.primary} />;
+      case 'system':
+        return <Smartphone size={20} color={colors.primary} />;
+      default:
+        return <Smartphone size={20} color={colors.primary} />;
+    }
+  };
+
+  const getThemeText = () => {
+    switch (themeMode) {
+      case 'light':
+        return 'Light';
+      case 'dark':
+        return 'Dark';
+      case 'system':
+        return 'System';
+      default:
+        return 'System';
+    }
   };
 
   const handleClearAllData = () => {
@@ -95,8 +149,85 @@ export default function SettingsScreen() {
     </TouchableOpacity>
   );
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.backgroundSecondary,
+    },
+    section: {
+      backgroundColor: colors.background,
+      marginBottom: 16,
+      paddingTop: 8,
+      borderRadius: 12,
+      marginHorizontal: 16,
+      overflow: 'hidden',
+    },
+    sectionTitle: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: colors.textSecondary,
+      marginBottom: 8,
+      paddingHorizontal: 16,
+    },
+    settingItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 16,
+      paddingHorizontal: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    settingIconContainer: {
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+      backgroundColor: colors.primaryLight,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 12,
+    },
+    settingTitle: {
+      flex: 1,
+      fontSize: 16,
+      color: colors.text,
+    },
+    settingRight: {
+      marginLeft: 8,
+    },
+    versionText: {
+      fontSize: 14,
+      color: colors.textSecondary,
+    },
+    themeText: {
+      fontSize: 14,
+      color: colors.textSecondary,
+      fontWeight: '500',
+    },
+    dangerSection: {
+      backgroundColor: colors.background,
+      marginBottom: 32,
+      borderRadius: 12,
+      marginHorizontal: 16,
+      overflow: 'hidden',
+    },
+    dangerText: {
+      color: colors.error,
+      fontWeight: '600',
+    },
+  });
+
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Appearance</Text>
+        {renderSettingItem(
+          getThemeIcon(),
+          'Theme',
+          handleThemeSelection,
+          <Text style={styles.themeText}>{getThemeText()}</Text>
+        )}
+      </View>
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Data Management</Text>
         {renderSettingItem(
@@ -153,64 +284,3 @@ export default function SettingsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundSecondary,
-  },
-  section: {
-    backgroundColor: colors.background,
-    marginBottom: 16,
-    paddingTop: 8,
-    borderRadius: 12,
-    marginHorizontal: 16,
-    overflow: 'hidden',
-  },
-  sectionTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    marginBottom: 8,
-    paddingHorizontal: 16,
-  },
-  settingItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  settingIconContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: colors.primaryLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  settingTitle: {
-    flex: 1,
-    fontSize: 16,
-    color: colors.text,
-  },
-  settingRight: {
-    marginLeft: 8,
-  },
-  versionText: {
-    fontSize: 14,
-    color: colors.textSecondary,
-  },
-  dangerSection: {
-    backgroundColor: colors.background,
-    marginBottom: 32,
-    borderRadius: 12,
-    marginHorizontal: 16,
-    overflow: 'hidden',
-  },
-  dangerText: {
-    color: colors.error,
-    fontWeight: '600',
-  },
-});
