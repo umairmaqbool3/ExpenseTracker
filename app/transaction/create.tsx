@@ -15,8 +15,8 @@ import {
 
 import CategoryPicker from '@/components/CategoryPicker';
 import PersonPicker from '@/components/PersonPicker';
-import colors from '@/constants/colors';
 import { useFinanceStore } from '@/hooks/useFinanceStore';
+import { useTheme } from '@/hooks/useTheme';
 import { TransactionType } from '@/types/finance';
 
 export default function CreateTransactionScreen() {
@@ -26,6 +26,7 @@ export default function CreateTransactionScreen() {
     people,
     addTransaction 
   } = useFinanceStore();
+  const {colors} = useTheme();
 
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
@@ -109,6 +110,120 @@ export default function CreateTransactionScreen() {
       default: return colors.primary;
     }
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    formContainer: {
+      padding: 16,
+    },
+    label: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: colors.text,
+      marginBottom: 8,
+    },
+    input: {
+      backgroundColor: colors.backgroundSecondary,
+      borderRadius: 12,
+      padding: 16,
+      fontSize: 16,
+      color: colors.text,
+      marginBottom: 16,
+    },
+    amountInputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.backgroundSecondary,
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 16,
+    },
+    currencySymbol: {
+      fontSize: 20,
+      fontWeight: '600',
+      color: colors.text,
+      marginRight: 8,
+    },
+    amountInput: {
+      flex: 1,
+      fontSize: 20,
+      color: colors.text,
+    },
+    typeButtonsContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginBottom: 16,
+    },
+    typeButton: {
+      flex: 1,
+      minWidth: '48%',
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 12,
+      padding: 12,
+      marginRight: 8,
+      marginBottom: 8,
+    },
+    selectedTypeButton: {
+      borderWidth: 2,
+    },
+    typeButtonContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    typeButtonText: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: colors.textSecondary,
+      marginLeft: 8,
+    },
+    addPersonButton: {
+      backgroundColor: colors.primaryLight,
+      borderRadius: 12,
+      padding: 16,
+      alignItems: 'center',
+      marginTop: 16,
+    },
+    addPersonButtonText: {
+      color: colors.primary,
+      fontWeight: '600',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      padding: 16,
+      backgroundColor: colors.background,
+      borderTopWidth: 1,
+      borderTopColor: colors.border,
+    },
+    cancelButton: {
+      flex: 1,
+      backgroundColor: colors.backgroundSecondary,
+      borderRadius: 12,
+      padding: 16,
+      alignItems: 'center',
+      marginRight: 8,
+    },
+    cancelButtonText: {
+      color: colors.textSecondary,
+      fontWeight: '600',
+    },
+    saveButton: {
+      flex: 1,
+      backgroundColor: colors.primary,
+      borderRadius: 12,
+      padding: 16,
+      alignItems: 'center',
+      marginLeft: 8,
+    },
+    saveButtonText: {
+      color: 'white',
+      fontWeight: '600',
+    },
+  });
 
   return (
     <KeyboardAvoidingView
@@ -221,117 +336,3 @@ export default function CreateTransactionScreen() {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  formContainer: {
-    padding: 16,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.text,
-    marginBottom: 8,
-  },
-  input: {
-    backgroundColor: colors.backgroundSecondary,
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: colors.text,
-    marginBottom: 16,
-  },
-  amountInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.backgroundSecondary,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-  },
-  currencySymbol: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: colors.text,
-    marginRight: 8,
-  },
-  amountInput: {
-    flex: 1,
-    fontSize: 20,
-    color: colors.text,
-  },
-  typeButtonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginBottom: 16,
-  },
-  typeButton: {
-    flex: 1,
-    minWidth: '48%',
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 12,
-    padding: 12,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  selectedTypeButton: {
-    borderWidth: 2,
-  },
-  typeButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  typeButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    marginLeft: 8,
-  },
-  addPersonButton: {
-    backgroundColor: colors.primaryLight,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  addPersonButtonText: {
-    color: colors.primary,
-    fontWeight: '600',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    padding: 16,
-    backgroundColor: colors.background,
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
-  },
-  cancelButton: {
-    flex: 1,
-    backgroundColor: colors.backgroundSecondary,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginRight: 8,
-  },
-  cancelButtonText: {
-    color: colors.textSecondary,
-    fontWeight: '600',
-  },
-  saveButton: {
-    flex: 1,
-    backgroundColor: colors.primary,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginLeft: 8,
-  },
-  saveButtonText: {
-    color: 'white',
-    fontWeight: '600',
-  },
-});

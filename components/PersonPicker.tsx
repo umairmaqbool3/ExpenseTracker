@@ -2,7 +2,7 @@ import { User } from 'lucide-react-native';
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import colors from '@/constants/colors';
+import { useTheme } from '@/hooks/useTheme';
 import { Person } from '@/types/finance';
 
 interface PersonPickerProps {
@@ -16,6 +16,7 @@ export default function PersonPicker({
   selectedPersonId,
   onSelectPerson,
 }: PersonPickerProps) {
+  const {colors} = useTheme();
   const renderPerson = ({ item }: { item: Person }) => {
     const isSelected = selectedPersonId === item.id;
     
@@ -46,6 +47,50 @@ export default function PersonPicker({
     );
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      marginVertical: 16,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: colors.text,
+      marginBottom: 12,
+      paddingHorizontal: 16,
+    },
+    listContent: {
+      paddingHorizontal: 16,
+    },
+    personItem: {
+      alignItems: 'center',
+      marginRight: 16,
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      borderRadius: 12,
+    },
+    iconContainer: {
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 8,
+    },
+    personName: {
+      fontSize: 12,
+      color: colors.text,
+      textAlign: 'center',
+    },
+    emptyContainer: {
+      padding: 16,
+      alignItems: 'center',
+    },
+    emptyText: {
+      color: colors.textSecondary,
+      fontSize: 14,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Person</Text>
@@ -66,47 +111,3 @@ export default function PersonPicker({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 16,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.text,
-    marginBottom: 12,
-    paddingHorizontal: 16,
-  },
-  listContent: {
-    paddingHorizontal: 16,
-  },
-  personItem: {
-    alignItems: 'center',
-    marginRight: 16,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 12,
-  },
-  iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  personName: {
-    fontSize: 12,
-    color: colors.text,
-    textAlign: 'center',
-  },
-  emptyContainer: {
-    padding: 16,
-    alignItems: 'center',
-  },
-  emptyText: {
-    color: colors.textSecondary,
-    fontSize: 14,
-  },
-});
