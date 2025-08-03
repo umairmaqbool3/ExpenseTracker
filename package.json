@@ -32,7 +32,7 @@
     "expo-symbols": "~0.4.4",
     "expo-system-ui": "~5.0.6",
     "expo-web-browser": "~14.1.6",
-    "lucide-react-native": "^0.475.0",
+    "lucide-react-native": "^0.536.0",
     "nativewind": "^4.1.23",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -48,9 +48,9 @@
     "@babel/core": "^7.25.2",
     "@expo/ngrok": "^4.1.0",
     "@types/react": "~19.0.10",
-    "typescript": "~5.8.3",
     "eslint": "^9.25.0",
-    "eslint-config-expo": "~9.2.0"
+    "eslint-config-expo": "~9.2.0",
+    "typescript": "~5.8.3"
   },
   "private": true
 }
